@@ -1,0 +1,9 @@
+step 1 : Install latest version of Python
+step 2 : Open a cli (cmd or powershell) and navigate to the server folder
+step 3 : run "python -m venv venv" It will create a virtual environment
+step 4 : then "cd venv/Scripts"
+step 5 : then "activate"
+step 6 : then "cd .."
+step 7 : then "cd .."
+step 8 : then "pip install -r requirements.txt"
+step 9 : then "python main.py"
