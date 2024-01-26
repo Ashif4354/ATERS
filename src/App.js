@@ -1,9 +1,11 @@
 import './App.css';
+import SignUp from './Pages/SignUp/SignUp';
 
 function App() {
   return (
     <div className='container'>
-      <p>ATERS</p>
+      {/* <div className='text'>ATERS</div> */}
+      <SignUp/>
     </div>
   );
 }

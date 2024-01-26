@@ -1,0 +1,6 @@
+- uid: A unique identifier for the user, typically a string.
+- email: The user's email address, if available.
+- phone_number: The user's phone number, if available.
+- display_name: The user's display name, if available.
+- photo_url: The URL of the user's profile photo, if available.
+- provider_id: The identifier
