@@ -12,6 +12,7 @@ api = Api(app)
     
 api.add_resource(Default, '/')
 api.add_resource(SignUp, '/signup')
+api.add_resource(SetSail, '/setsail')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
