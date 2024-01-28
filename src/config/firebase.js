@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCrUEqj7W5A-fJY2MQWbDAe5g-HOP0wleM",
-  authDomain: "project-aters.firebaseapp.com",
-  projectId: "project-aters",
-  storageBucket: "project-aters.appspot.com",
-  messagingSenderId: "578052860105",
-  appId: "1:578052860105:web:8aa2def63abd6024a24518",
-  measurementId: "G-JB7D6HEXF2"
+  apiKey: "AIzaSyC6ujZSF9QmmFC-ky3Vwx_e1WxJE35uYxo",
+  authDomain: "aters-gcp.firebaseapp.com",
+  projectId: "aters-gcp",
+  storageBucket: "aters-gcp.appspot.com",
+  messagingSenderId: "285700319859",
+  appId: "1:285700319859:web:fbe6d9844e56439ab11806",
+  measurementId: "G-MYX8P9CQPG"
 };
 
 const app = initializeApp(firebaseConfig);

@@ -1,11 +1,82 @@
-.form-container {
-    border-style: solid;
-    border-width: 2px;  
-    border-radius: 5px;  
-    border-color: grey;
+.main-container {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-
-    /* other styles */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../../assets/images/tree_bg.jpg');
+    /* background-position: 2495px 1080px; */
+    background-size: cover;
+    /* background-position: right; */
+    background-repeat: no-repeat;
 }
+.form-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 500px;
+    border-style: solid;
+    border-width: 1px;  
+    border-radius: 5px; 
+    align-items: center; 
+    border-color: rgb(209, 209, 209);
+    background-image: url('../../assets/images/poster-bg.png');
+    background-size: cover;
+    /* background-color: violet; */
+    
+}
+
+.heading {
+    font-family: 'Playfair Display SC', serif;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    /* background-color: aqua; */
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* background-color: aqua; */
+}
+.check-box-text {
+    font-size: small;
+    margin-right: 12px;
+}
+
+.signup-btn {
+    width: 60%;
+    height: 40px;
+    border-radius: 5px;
+    border-style: none;
+    align-self: center;
+    background-color: #3F72AF;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+.captcha-container {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    /* background-color: aqua; */
+}
+
+.or-text {
+    font-size:large;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    align-self: center;
+}
+
+.google-btn-container {
+    align-self: center;
+}
+
+
+
+ 

@@ -1,0 +1,126 @@
+.card-places {
+    height: 511px;
+    width:362px;
+    /* background-color: brown; */
+    background-image: url("../../../../assets/images/poster-template.png");
+    background-size: cover;
+    margin-bottom: 50px;
+    margin-left:30px;
+    margin-right:30px;
+    align-items: center;
+    justify-content: center;
+    padding-left: 2.41%;
+    padding-right: 2.46%;
+}
+.card-reshot {
+    height: 511px;
+    width:362px;
+    /* background-color: brown; */
+    background-image: url("../../../../assets/images/poster-template.png");
+    background-size: cover;
+    margin-bottom: 50px;
+    margin-left:55px;
+    margin-right:55px;
+    align-items: center;
+    justify-content: center;
+    padding-left: 2.4%;
+    padding-right: 2.3%;
+}
+
+.titleContainer {
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'playfair display', serif;
+    color: #594527;
+    /* background-color: #f5f5f5; */
+    width:100%;
+    height:17%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 2%;    
+    padding-bottom: 5%;
+    cursor:pointer;
+}
+
+.image-container {
+    height:41.79%;
+    width: 100%;
+    /* margin-left: 30px; */
+    margin-top: 1.5px;
+    /* margin-bottom: 20px; */
+    background-color: red;
+}
+.image {
+    height: 100%;
+    width: 100%;
+    /* background-color: green; */
+
+}
+
+.bottomContainer {
+    height: 34%;
+    width: 100%;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading1-container {
+    /* background-color: red; */
+    height: 30%;
+    font-size:x-large;
+    font-weight: bold;
+    font-family: 'playfair display', serif;
+    color: #594527;
+
+}
+
+.heading2-container {
+    /* background-color: blue; */
+    height:15%;
+    font-weight: bold;
+    font-family: 'playfair display', serif;
+    color: #594527;
+}
+
+.description-container {
+    /* background-color: yellow; */
+    /* height: 55%; */
+    font-size:large;
+    font-weight: bold;
+    font-family: 'playfair display', serif;
+    color: #594527;
+}
+
+.heading1-container2 {
+    /* background-color: red; */
+    height: 15%;
+    font-size:large;
+    font-weight: bold;
+    font-family: 'playfair display', serif;
+    color: #594527;
+
+}
+
+.heading2-container2 {
+    /* background-color: blue; */
+    height:30%;
+    width:100%;
+    font-size:xxx-large;
+    font-weight: bold;
+    font-family: 'playfair display', serif;
+    color: #594527;
+}
+
+.description-container2 {
+    /* background-color: yellow; */
+    /* height: 55%; */
+    font-size:large;
+    font-weight: bold;
+    font-family: 'playfair display', serif;
+    color: #594527;
+}
+

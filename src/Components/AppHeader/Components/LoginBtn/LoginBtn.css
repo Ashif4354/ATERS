@@ -1,0 +1,56 @@
+.btn {
+    width: 40%;
+    height: 50px;
+    border-radius: 25px;
+    border-style: none;
+    align-self: center;
+    background-color: #3F72AF;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+.btn-content {
+    height:100%;
+    /* background-color: brown; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+.logo {
+    /* background-color: azure; */
+    height: 100%;
+    width: 40%;
+}
+.skeleton {
+    width:100%;
+    margin-top: 21%;
+    margin-left: 7px;
+    /* background-color: aqua; */
+}
+
+.btn-content {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* background-color: aqua; */
+}
+.text-container {
+    /* background-color: aqua; */
+    align-items: center;
+    width: 77%;
+    /* padding-bottom: 15px; */
+}
+
+.text {
+    margin-right: 9px;
+    /* font-size: 15px; */
+    /* margin-bottom: 10px; */
+    /* text-align: center; */
+    /* margin-left: 10px; */
+    /* background-color: aqua; */
+}

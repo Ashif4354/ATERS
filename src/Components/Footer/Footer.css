@@ -1,0 +1,11 @@
+.footer {
+    background-color: #14ce2c;
+    background-color: transparent;
+    color: #000000;
+    /* height: 7vh; */
+    text-align: center;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
