@@ -127,8 +127,8 @@ class GetPlaces:
 
         response = self.session.post(url, headers=headers, json=data)
         # print(response.json())
-        with open('hotels.json', 'w') as f:
-            dump(response.json(), f, indent=4)
+        # with open('hotels.json', 'w') as f:
+        #     dump(response.json(), f, indent=4)
 
         places = response.json()['places']
 

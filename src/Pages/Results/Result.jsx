@@ -5,12 +5,14 @@ import './Result.css';
 import EachDay from './Components/EachDay/EachDay';
 import Restaurants from './Components/Restaurants/Restaurants';
 import Hotels from './Components/Hotels/Hotels';
+import AppHeader from '../../Components/AppHeader/AppHeader';
 
 const Result = () => {
     const { state } = useLocation();
     // console.log(state);
     return (
         <div className='main-container'>
+            <AppHeader />
             <div className='scroll-container'>
                 <div className='day-container'>
                     {

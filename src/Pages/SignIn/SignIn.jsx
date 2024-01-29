@@ -1,27 +1,37 @@
 import React, { useState } from 'react';
 import './SignIn.css';
 
-import { auth, provider } from "../../config/firebase";
+import { auth, provider } from "../../config/firebase";// eslint-disable-next-line
 import { signInWithPopup, signInWithRedirect, GoogleAuthProvider, signInWithEmailAndPassword } from "firebase/auth";
-
 
 import TextField from '@mui/material/TextField';
 import GoogleButton from 'react-google-button';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
+import AppHeader from '../../Components/AppHeader/AppHeader';
+import { createSession } from '../../scripts/Session';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('');// eslint-disable-next-line
     const [user, setUser] = useState(null);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleEmailSignIn = () => {
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                setUser(userCredential.user);
-                // ...
+            .then((result) => {
+                // setUser(result.user);
+                const user = result.user;
+                const loggedInUser = {
+                    name: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL
+                }
+                setUser(loggedInUser)
+                createSession(loggedInUser)
+                navigate('/')
+
+                
             })
             .catch((error) => {
                 setError(error.message);
@@ -33,17 +43,27 @@ const SignIn = () => {
         signInWithPopup(auth, provider)
             // signInWithRedirect(auth, provider)
             .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
+                // const credential = GoogleAuthProvider.credentialFromResult(result);
+                // const token = credential.accessToken;
                 const user = result.user;
                 // console.log("TOKEN", token);
                 // console.log("USER", user);
+                const loggedInUser = {
+                    name: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL
+                }
+
+                setUser(loggedInUser)
+                createSession(loggedInUser)
+                navigate('/')
             })
 
     };
 
     return (
         <div className='main-container'>
+            <AppHeader />
             <div className='form-container'>
                 <h2 className="heading">Sign In</h2>
                 <div className='form-fields'>

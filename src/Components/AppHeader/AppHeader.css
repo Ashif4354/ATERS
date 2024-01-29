@@ -1,6 +1,7 @@
 .header {
     display: flex;
     position: absolute;
+    top :0;
     /* justify-content: center; */
     align-items: center;
     text-align: center;
@@ -31,4 +32,82 @@
 
 .right {
     width:18%;
+    display: flex;
+    /* background-color: aqua; */
+    align-items: center;
+    /* justify-content: center; */
+    font-family: 'Playfair Display SC', serif;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    /* justify-content: center; */
+    /* margin-right: 20px; */
+    /* background-color: salmon; */
+
+}
+
+.username-container {
+    display: flex;
+    width: 70%;
+    justify-content: right;
+    /* background-color: royalblue; */
+
+}
+
+.user-name {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-right:2%;
+    /* background-color: red; */
+}
+
+.profile-btn-container {
+    display: flex;
+    width:30%;
+    justify-content: left;
+    align-items: center;
+}
+
+
+.user-icon {
+    cursor: pointer;
+    color: white;
+    /* background-color: blue; */
+}
+
+/* .logout-btn {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #000000;
+    cursor: pointer;
+    outline: none;
+    
+} */
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 2%;
+    top: 80%;
+    padding:5px;
+    width: 200px;
+    height: 25px;
+    background-color: aqua;
+    background-image: url('../../assets/images/poster-bg.png');
+}
+
+.logout-btn {
+    background-color: black;
+    color: white;
+    cursor: pointer;
 }

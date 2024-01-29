@@ -1,31 +1,33 @@
-import React, { useState, useRef, useEffect } from "react";
-import { auth, provider } from "../../config/firebase";
-import { signInWithPopup, signInWithRedirect, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
-
-import TextField from '@mui/material/TextField';
-import Checkbox from '@mui/material/Checkbox';
+import React, { useState, useRef } from "react";
+import { auth, provider } from "../../config/firebase";// eslint-disable-next-line
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
 import GoogleButton from 'react-google-button';
 import ReCAPTCHA from "react-google-recaptcha";
 
 import "./SignUp.css";
-import { Link } from "react-router-dom";
+import TextField from '@mui/material/TextField';
+import Checkbox from '@mui/material/Checkbox';
+import { createSession } from "../../scripts/Session";
+import AppHeader from "../../Components/AppHeader/AppHeader";
 
 
 const SignUp = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-
+    const [confirmPassword, setConfirmPassword] = useState("");// eslint-disable-next-line
     const [user, setUser] = useState(null);
     const recaptchaRef = useRef();
+    const navigate = useNavigate()
+
 
     const handleSignUp = async (event) => {
         event.preventDefault();
         if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
-        } else if (recaptchaRef.current.getValue() == "") {
+        } else if (recaptchaRef.current.getValue() === "") {
             alert("Complete the captcha")
             return
         }
@@ -41,7 +43,7 @@ const SignUp = () => {
             'Content-Type': 'application/json'
         }
         
-        fetch('http://127.0.0.1:5000/signup',
+        fetch(process.env.REACT_APP_server_url + '/signup',
             {
                 method: 'POST',
                 headers: headers,
@@ -66,17 +68,26 @@ const SignUp = () => {
     const handleGoogleSignIn = async () => {
 
         signInWithPopup(auth, provider)
-            // signInWithRedirect(auth, provider)
+            // signInWithRedirect(auth, provider) // eslint-disable-next-line
             .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
+                // const credential = GoogleAuthProvider.credentialFromResult(result);// eslint-disable-next-line
+                // const token = credential.accessToken;// eslint-disable-next-line
                 const user = result.user;
                 // console.log("TOKEN", token);
                 // console.log("USER", user);
+                const loggedInUser = {
+                    name: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                }
+                
+                setUser(loggedInUser)
+                createSession(loggedInUser)
+                navigate('/')
             })
-
     };
-
+    
+    // eslint-disable-next-line
     const displayCaptcha = () => {
         console.log("CAPTCHA", typeof recaptchaRef.current.getValue())
         console.log(recaptchaRef.current.getValue());
@@ -84,9 +95,9 @@ const SignUp = () => {
 
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
-
     return (
         <div className="main-container">
+            <AppHeader />
 
             <div className="form-container">
                 <h2 className="heading">Sign Up</h2>

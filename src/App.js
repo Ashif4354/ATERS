@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import SignUp from './Pages/SignUp/SignUp';
 import Home from './Pages/Home/Home';
-import AppHeader from './Components/AppHeader/AppHeader';
 import Footer from './Components/Footer/Footer';
 import SignIn from './Pages/SignIn/SignIn';
 import Result from './Pages/Results/Result';
@@ -12,7 +11,7 @@ import Result from './Pages/Results/Result';
 function App() {
   return (
     <BrowserRouter>
-      <AppHeader />
+      {/* <AppHeader /> */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/signup' element={<SignUp />} />
