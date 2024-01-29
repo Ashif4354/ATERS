@@ -10,7 +10,7 @@ class SetSail(Resource):
     
     def post(self):
         data = request.json
-        print(data, type(data))
+        # print(data, type(data))
         total_days = data['days']
         
         

@@ -53,7 +53,7 @@ class GetPlaces:
 
         
         r = self.session.post(url, headers=headers, json=data)
-        print(r.json())
+        # print(r.json())
         places = r.json()['places']
             
             
@@ -126,7 +126,7 @@ class GetPlaces:
         }
 
         response = self.session.post(url, headers=headers, json=data)
-        print(response.json())
+        # print(response.json())
         with open('hotels.json', 'w') as f:
             dump(response.json(), f, indent=4)
 
@@ -219,7 +219,7 @@ class GetPlaces:
         }
 
         response = self.session.post(url, headers=headers, json=data)
-        print(response.json())
+        # print(response.json())
         with open('hotels.json', 'w') as f:
             dump(response.json(), f, indent=4)
 

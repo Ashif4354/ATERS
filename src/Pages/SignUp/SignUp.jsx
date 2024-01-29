@@ -47,11 +47,11 @@ const SignUp = () => {
                 headers: headers,
                 body: JSON.stringify(data)
             }).then(response => {
-                // console.log(response)
+                console.log(response)
             }).catch(error => {
-                // console.log(error)
+                console.log(error)
             })
-        
+
 
         //     createUserWithEmailAndPassword(auth, email, password)
         //         .then((user) => {
