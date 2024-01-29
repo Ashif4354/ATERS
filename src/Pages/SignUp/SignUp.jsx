@@ -42,14 +42,26 @@ const SignUp = () => {
         const headers = {
             'Content-Type': 'application/json'
         }
-        
+
         fetch(process.env.REACT_APP_server_url + '/signup',
             {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(data)
-            }).then(response => {
-                console.log(response)
+            })
+            .then(response => response.json())
+            .then(response => {
+                // console.log(response)
+                const loggedInUser = {
+                    name: response.name,
+                    email: response.email,
+                    photoURL: response.photoURL,
+                }
+
+                setUser(loggedInUser)
+                createSession(loggedInUser)
+                navigate('/')
+
             }).catch(error => {
                 console.log(error)
             })
@@ -80,13 +92,13 @@ const SignUp = () => {
                     email: user.email,
                     photoURL: user.photoURL,
                 }
-                
+
                 setUser(loggedInUser)
                 createSession(loggedInUser)
                 navigate('/')
             })
     };
-    
+
     // eslint-disable-next-line
     const displayCaptcha = () => {
         console.log("CAPTCHA", typeof recaptchaRef.current.getValue())

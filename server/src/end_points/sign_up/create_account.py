@@ -16,11 +16,12 @@ def create_account(name, email, password):
             password=password,
             display_name=name
         )
-        print(user.email, user.uid, user.display_name)
+        # print(user.email, user.uid, user.display_name)
 
         return {
             'email': user.email,
-            'name': user.display_name
+            'name': user.display_name,
+            'photoURL': user.photo_url,
         }
     
     except Exception as e:
