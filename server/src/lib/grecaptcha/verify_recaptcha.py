@@ -6,7 +6,7 @@ def verify_recaptcha(token):
         url = "https://www.google.com/recaptcha/api/siteverify"
 
         data = {
-            'secret': environ['6LeR6l0pAAAAAJPrrnPaLm1PZk6fZfjyIoOCmGdg'],
+            'secret': environ['g_recaptcha_secret_key'],
             'response': token
         }
 
