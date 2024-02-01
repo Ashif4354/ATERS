@@ -6,7 +6,7 @@ firebase_service_account_key = {
   "type": "service_account",
   "project_id": environ['firebase_project_id'],
   "private_key_id": environ['firebase_private_key_id'],
-  "private_key": environ['firebase_private_key'],
+  "private_key": environ['firebase_private_key'].replace('\\n', '\n'),
   "client_email": environ['firebase_client_email'],
   "client_id": environ['firebase_client_id'],
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
