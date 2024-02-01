@@ -25,12 +25,15 @@ const SignUp = () => {
     const handleSignUp = async (event) => {
         event.preventDefault();
         if (password !== confirmPassword) {
-            alert("Passwords do not match");
+            alert("Passwords do not match")
+            return;
+        } else if (password.length < 6) {
+            alert("Password must be at least 6 characters long")
             return;
         } else if (recaptchaRef.current.getValue() === "") {
-            alert("Complete the captcha")
+            alert('*Complete the captcha');
             return
-        }
+        } 
 
         const data = {
             name: name,
@@ -52,15 +55,19 @@ const SignUp = () => {
             .then(response => response.json())
             .then(response => {
                 // console.log(response)
-                const loggedInUser = {
-                    name: response.name,
-                    email: response.email,
-                    photoURL: response.photoURL,
-                }
-
-                setUser(loggedInUser)
-                createSession(loggedInUser)
-                navigate('/')
+                if (response.success) {
+                    const loggedInUser = {
+                        name: response.name,
+                        email: response.email,
+                        photoURL: response.photoURL,
+                    }    
+                    setUser(loggedInUser)
+                    createSession(loggedInUser)
+                    navigate('/')
+                } else {
+                    alert(response.message)
+                    recaptchaRef.current.reset()
+                }                
 
             }).catch(error => {
                 console.log(error)
@@ -168,7 +175,7 @@ const SignUp = () => {
                             ref={recaptchaRef}
                         />
                     </div>
-
+                    
                     <button className='signup-btn' type="submit">Sign Up</button>
                     {/* <button className='signup-btn'onClick={displayCaptcha}>Sign Up</button> */}
 

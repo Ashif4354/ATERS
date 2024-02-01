@@ -1,14 +1,18 @@
 from os import environ
 from json import dump
+
+from ....lib.Exceptions.Exceptions import InvalidPlace
+
 class GetPlaces:
     def __init__(self, session, place):
         self.session = session
         self.place = place
-
-    def get_places(self, days):
-
         self.coords = self.get_coords()
 
+        if self.coords is None:
+            raise InvalidPlace('Invalid Place')
+
+    def fetch_places_from_maps(self, data, type):
         url = 'https://places.googleapis.com/v1/places:searchNearby'
 
         headers = {
@@ -17,6 +21,47 @@ class GetPlaces:
             'X-Goog-FieldMask': '*'
         }
 
+        data = {
+            'locationRestriction': {
+                'circle': {
+                    'center': self.coords,
+                    'radius': 10000 
+                }
+            },
+            **data
+        }
+
+
+        r = self.session.post(url, headers=headers, json=data)
+        # print(r.json())
+        try:
+            places = r.json()['places']
+        except KeyError:
+            print(r.json())
+            return
+        print(f'TOTAL {type}: ', len(places))
+        with open(f'output_json_files/{type}.json', 'w') as f:
+            dump(r.json(), f, indent=4)
+            
+        for place in places:
+            if 'userRatingCount' not in place:
+                place['userRatingCount'] = 0
+            if 'rating' not in place:
+                place['rating'] = 1
+            if 'googleMapsUri' not in place:
+                place['googleMapsUri'] = 'https://www.google.com/maps/search/?api=1&query={}'.format(place['displayName']['text'])
+            if 'photos' not in place:
+                place['photos'] = []
+            
+        
+        places.sort(key=lambda x: x['userRatingCount'], reverse=True)
+
+        for place in places:
+            print(place['displayName']['text'])
+
+        return places
+
+    def get_places(self, days):  
         data = {
             'includedTypes': [
                 'amusement_center',
@@ -43,25 +88,8 @@ class GetPlaces:
                 # 'wedding_venue',
                 'zoo'],
             'maxResultCount': 20,
-            'locationRestriction': {
-                'circle': {
-                    'center': self.coords,
-                    'radius': 10000 
-                }
-            }
         }
-
-        
-        r = self.session.post(url, headers=headers, json=data)
-        # print(r.json())
-        places = r.json()['places']
-            
-            
-        places.sort(key=lambda x: x['userRatingCount'], reverse=True)
-
-        for place in places:
-            print(place['displayName']['text'])
-
+        places = self.fetch_places_from_maps(data, 'places')
         response = {}
 
         for i in range(days):
@@ -76,13 +104,18 @@ class GetPlaces:
                     place['description'] = places[i*3+j]['editorialSummary']['text']
                 except KeyError:
                     place['description'] = places[i*3+j]['formattedAddress']
+                except:
+                    place['description'] = 'No Description/Address available'
 
                 place['gmaps_url'] = places[i*3+j]['googleMapsUri']
                 
                 photo_names = []
                 for k in range(1):
                 # for k in range(len(places[i]['photos'])):
-                    photo_names.append(places[i*3+j]['photos'][k]['name'])
+                    try:
+                        photo_names.append(places[i*3+j]['photos'][k]['name'])
+                    except IndexError:
+                        pass
                 place['images'] = self.get_photo_uris(photo_names)
             
                 response[day].append(place)
@@ -91,13 +124,6 @@ class GetPlaces:
         return response
 
     def get_hotels(self):
-        url = 'https://places.googleapis.com/v1/places:searchNearby'
-
-        headers = {
-            'Content-Type': 'application/json',
-            'X-Goog-Api-Key': environ['g_maps_api_key'],
-            'X-Goog-FieldMask': '*'
-        }
 
         data = {
             'includedTypes': [
@@ -116,24 +142,10 @@ class GetPlaces:
                 'resort_hotel',
                 'rv_park',
             ],
-            'maxResultCount': 20,
-            'locationRestriction': {
-                'circle': {
-                    'center': self.coords,
-                    'radius': 10000
-                }
-            }
+            'maxResultCount': 20
         }
 
-        response = self.session.post(url, headers=headers, json=data)
-        # print(response.json())
-        # with open('hotels.json', 'w') as f:
-        #     dump(response.json(), f, indent=4)
-
-        places = response.json()['places']
-
-        places.sort(key=lambda x: x['userRatingCount'], reverse=True)
-
+        places = self.fetch_places_from_maps(data, 'hotels')
         places = places[:3]
 
         response = []
@@ -146,6 +158,8 @@ class GetPlaces:
                 place_['description'] = place['editorialSummary']['text']
             except KeyError:
                 place_['description'] = place['formattedAddress']
+            except:
+                place['description'] = 'No Description/Address available'
 
             place_['gmaps_url'] = place['googleMapsUri']
             place_['rating'] = place['rating']
@@ -153,7 +167,10 @@ class GetPlaces:
             photo_names = []
             for k in range(1):
             # for k in range(len(places[i]['photos'])):
-                photo_names.append(place['photos'][k]['name'])
+                try:
+                    photo_names.append(place['photos'][k]['name'])
+                except IndexError:
+                    pass
             place_['images'] = self.get_photo_uris(photo_names)
 
             response.append(place_)
@@ -161,13 +178,6 @@ class GetPlaces:
         return response
     
     def get_restaurants(self):
-        url = 'https://places.googleapis.com/v1/places:searchNearby'
-
-        headers = {
-            'Content-Type': 'application/json',
-            'X-Goog-Api-Key': environ['g_maps_api_key'],
-            'X-Goog-FieldMask': '*'
-        }
 
         data = {
             'includedTypes': [
@@ -209,24 +219,10 @@ class GetPlaces:
                 'vegetarian_restaurant',
                 'vietnamese_restaurant',
             ],
-            'maxResultCount': 20,
-            'locationRestriction': {
-                'circle': {
-                    'center': self.coords,
-                    'radius': 10000
-                }
-            }
+            'maxResultCount': 20
         }
 
-        response = self.session.post(url, headers=headers, json=data)
-        # print(response.json())
-        with open('hotels.json', 'w') as f:
-            dump(response.json(), f, indent=4)
-
-        places = response.json()['places']
-
-        places.sort(key=lambda x: x['userRatingCount'], reverse=True)
-
+        places = self.fetch_places_from_maps(data, 'restaurants')
         places = places[:3]
 
         response = []
@@ -239,6 +235,8 @@ class GetPlaces:
                 place_['description'] = place['editorialSummary']['text']
             except KeyError:
                 place_['description'] = place['formattedAddress']
+            except:
+                place['description'] = 'No Description/Address available'
 
             place_['gmaps_url'] = place['googleMapsUri']
             place_['rating'] = place['rating']
@@ -246,34 +244,16 @@ class GetPlaces:
             photo_names = []
             for k in range(1):
             # for k in range(len(places[i]['photos'])):
-                photo_names.append(place['photos'][k]['name'])
+                try:
+                    photo_names.append(place['photos'][k]['name'])
+                except IndexError:
+                    pass
             place_['images'] = self.get_photo_uris(photo_names)
 
             response.append(place_)
 
         return response
-
     
-
-        
-        
-
-        
-
-
-
-
-
-
-        
-
-
-        
-
-        
-
-        
-
 
     def get_coords(self):
         url = 'https://maps.googleapis.com/maps/api/geocode/json'
@@ -285,13 +265,17 @@ class GetPlaces:
 
         response = self.session.get(url, params=params)
         response = response.json()
-
-        coords = {
-            'latitude':response['results'][0]['geometry']['location']['lat'],
-            'longitude':response['results'][0]['geometry']['location']['lng']
-        }
         
-        return coords
+        try:
+
+            coords = {
+                'latitude':response['results'][0]['geometry']['location']['lat'],
+                'longitude':response['results'][0]['geometry']['location']['lng']
+            }
+            return coords
+        
+        except IndexError:
+            return None      
 
     def get_photo_uris(self, names):
         uris = []

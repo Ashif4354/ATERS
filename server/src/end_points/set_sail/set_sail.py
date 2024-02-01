@@ -3,6 +3,7 @@ from flask_restful import Resource
 from requests import Session
 
 from .lib.GetPlaces import GetPlaces 
+from ...lib.Exceptions.Exceptions import InvalidPlace
 
 class SetSail(Resource):
     def get(self):
@@ -13,16 +14,21 @@ class SetSail(Resource):
         # print(data, type(data))
         total_days = data['days']
         
-        
-        
         with Session() as session:
-            GP = GetPlaces(session, data['destination'])
+            try:
+                GP = GetPlaces(session, data['destination'])
+            except InvalidPlace:
+                return {
+                    'success': False,
+                    'message': 'Invalid Place'
+                }
             places = GP.get_places(total_days)
             hotels = GP.get_hotels()
             restaurants = GP.get_restaurants()
 
 
         response = {
+            'success': True,
             'places': places,
             'hotels': hotels,
             'restaurants': restaurants

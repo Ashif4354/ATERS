@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { TextField } from "@mui/material";
 import BasicDatePicker from "./Components/BasicDatePicker";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import ReCAPTCHA from "react-google-recaptcha";
 
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +18,7 @@ const Home = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [placeData, setPlaceData] = useState(null);
     const [submit, setSubmit] = useState(false);
+    const recaptchaRef = useRef();
 
     const navigate = useNavigate();
 
@@ -40,21 +42,30 @@ const Home = () => {
         } else if (!toDate) {
             setErrorMessage('*Please select a "TO" date');
             return
+        } else if (fromDate < new Date().getTime()){
+            console.log(fromDate, new Date().getTime());
+            setErrorMessage('* Select a date in the future');
+            return
+
         } else if (fromDate > toDate) {
             setErrorMessage('*"FROM" date cannot be greater than "TO" date');
+            return
+        } else if (recaptchaRef.current.getValue() === "") {
+            setErrorMessage('*Please complete the captcha');
             return
         }
         // console.log(toDate - fromDate);
         setErrorMessage('');
 
         const data = {
-            destination,
+            destination: destination,
             fromDate: fromDate.format('DD-MM-YYYY'),
             toDate: toDate.format('DD-MM-YYYY'),
-            days: ((toDate - fromDate) / 86400000) + 1
+            days: ((toDate - fromDate) / 86400000) + 1,
+            recaptchaToken: recaptchaRef.current.getValue()
         }
         setSubmit(true);
-        submitToServer(data, setPlaceData)
+        submitToServer(data, setPlaceData, setSubmit, setErrorMessage, recaptchaRef)
     }
 
     useEffect(() => {
@@ -94,6 +105,16 @@ const Home = () => {
                     <p className='error-message'>
                         {errorMessage}
                     </p>
+                    <div className="recaptcha-container">
+                        <ReCAPTCHA
+                            sitekey={process.env.REACT_APP_g_recaptcha_site_key}
+                            ref={recaptchaRef}
+                            size="normal"
+                            // type='audio'
+                            // theme="dark"
+                            // size="invisible"
+                        />
+                    </div> 
                     <button className="set-sail-btn" onClick={submitSetSail}>
                         {
                             submit ? (

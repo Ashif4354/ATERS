@@ -55,6 +55,13 @@
     margin-left: 1px;
 }
 
+.recaptcha-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: aqua; */
+}
+
 .set-sail-btn {
     width: 100%;
     height: 50px ;
@@ -83,4 +90,5 @@
     font-weight: bold;
     margin-top: 5px;
     margin-bottom: 5px;
+    text-shadow: 1px 1px 1px #424040;
 }

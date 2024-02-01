@@ -8,7 +8,7 @@ from firebase_admin import auth
 # open('./sign_up.py')
 
 def create_account(name, email, password):
-    print(name, email, password)
+    # print(name, email, password)
 
     try:
         user = auth.create_user(
@@ -19,6 +19,7 @@ def create_account(name, email, password):
         # print(user.email, user.uid, user.display_name)
 
         return {
+            'success': True,
             'email': user.email,
             'name': user.display_name,
             'photoURL': user.photo_url,
@@ -26,6 +27,9 @@ def create_account(name, email, password):
     
     except Exception as e:
         print(e)
-        return None
+        return {
+            'success': False,
+            'message': str(e),
+        }
     
     

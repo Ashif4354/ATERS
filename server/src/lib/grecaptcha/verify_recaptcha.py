@@ -10,14 +10,10 @@ def verify_recaptcha(token):
             'response': token
         }
 
-        print(data)
-
-        headers = {
-            'Content-Type': 'application/json'
-        }
+        # print(data)
 
         response = session.post(url, data=data)
-        print(response.json())
+        # print(response.json())
         return response.json()['success']
 
 

@@ -29,5 +29,5 @@ yarn-debug.log*
 yarn-error.log*
 
 # secrets
-# fireBaseServiceAccountKey.json
+fireBaseServiceAccountKey.json
 .env
