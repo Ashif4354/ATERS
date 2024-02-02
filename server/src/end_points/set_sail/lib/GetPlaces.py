@@ -25,7 +25,7 @@ class GetPlaces:
             'locationRestriction': {
                 'circle': {
                     'center': self.coords,
-                    'radius': 10000 
+                    'radius': 20000 
                 }
             },
             **data
@@ -39,7 +39,7 @@ class GetPlaces:
         except KeyError:
             print(r.json())
             return
-        print(f'TOTAL {type}: ', len(places))
+        # print(f'TOTAL {type}: ', len(places))
         with open(f'output_json_files/{type}.json', 'w') as f:
             dump(r.json(), f, indent=4)
             
@@ -56,8 +56,8 @@ class GetPlaces:
         
         places.sort(key=lambda x: x['userRatingCount'], reverse=True)
 
-        for place in places:
-            print(place['displayName']['text'])
+        # for place in places:
+        #     print(place['displayName']['text'])
 
         return places
 

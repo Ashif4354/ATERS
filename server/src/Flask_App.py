@@ -11,14 +11,9 @@ from .lib.grecaptcha.verify_recaptcha import verify_recaptcha
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
-    
-api.add_resource(Default, '/')
-api.add_resource(SignUp, '/signup')
-api.add_resource(SetSail, '/setsail')
 
 @app.before_request
 def before_request():
-    print('before_request')
     if request.method == 'POST': 
         if 'recaptchaToken' in request.json and request.json['recaptchaToken'] != '':
             recaptcha_token = request.json['recaptchaToken']
@@ -32,7 +27,10 @@ def before_request():
                 'success': False,
                 'message': 'Recaptcha token not found',
             })
-    print('before_request end')
+
+api.add_resource(Default, '/')
+api.add_resource(SignUp, '/signup')
+api.add_resource(SetSail, '/setsail')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
