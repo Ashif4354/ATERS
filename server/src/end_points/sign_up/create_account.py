@@ -1,4 +1,4 @@
-from ...firebase_config.firebase_config import *
+from ...config.firebase_config import *
 from firebase_admin import auth
 
 # with open('../../../firebase_config/fireBaseServiceAccountKey.json', 'r') as f:

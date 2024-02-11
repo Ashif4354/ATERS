@@ -19,10 +19,11 @@ const Home = () => {
     const [fromDate, setFromDate] = useState(null);
     const [toDate, setToDate] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
-    const [placeData, setPlaceData] = useState(null);
+    const [resultID, setResultID] = useState('');
     const [submit, setSubmit] = useState(false);
     const recaptchaRef = useRef();
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [user, setUser] = useState({});
 
     const navigate = useNavigate();
 
@@ -65,6 +66,7 @@ const Home = () => {
         setErrorMessage('');
 
         const data = {
+            email: user.email,
             destination: destination,
             fromDate: fromDate.format('DD-MM-YYYY'),
             toDate: toDate.format('DD-MM-YYYY'),
@@ -72,15 +74,19 @@ const Home = () => {
             recaptchaToken: recaptchaRef.current.getValue()
         }
         setSubmit(true);
-        submitToServer(data, setPlaceData, setSubmit, setErrorMessage, recaptchaRef)
+        submitToServer(data, setResultID, setSubmit, setErrorMessage, recaptchaRef)
     }
 
     useEffect(() => {
-        if (placeData) {
-            navigate('/results', { state: placeData });
+        if (resultID) {
+            // console.log(resultID);
+            navigate(`/schedule?id=${resultID}`);
         }
-    }, [placeData, navigate])
+    }, [resultID, navigate])
 
+    useEffect(() => {
+        setUser(getSession());
+    }, [])
 
     return (
         <div className="main-container">

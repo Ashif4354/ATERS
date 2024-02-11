@@ -1,9 +1,9 @@
 .btn {
-    width: 40%;
+    width: 120px;
     height: 50px;
     border-radius: 25px;
     border-style: none;
-    align-self: center;
+    /* align-self: center; */
     background-color: #3F72AF;
     color: white;
     font-size: 20px;
@@ -21,14 +21,14 @@
 
 }
 .logo {
-    /* background-color: azure; */
+        /* background-color: azure; */
     height: 100%;
     width: 40%;
 }
 .skeleton {
     width:100%;
     margin-top: 21%;
-    margin-left: 7px;
+    margin-left: 15%;
     /* background-color: aqua; */
 }
 

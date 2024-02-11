@@ -2,32 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* justify-content: center; */
 
     overflow-y: scroll;
-    /* height: 100vh; */
+    overflow-x: scroll;
+    height: 100vh;
     width:100vw;
     /* background-color: aqua; */
-}
-
-
-.cards-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.foodInfo {
-    /* margin: 40px; */
-    font-family: 'Playfair Display SC', serif;
-    color: white;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #000000;
-}
-
-.day-container {
-    margin-top:100px;
-    /* align-items: center; */
-    text-align: center;
 }
 
 .return {
@@ -38,11 +19,6 @@
     -webkit-text-stroke-color: #000000;
 }
 
-.cards-container2 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
 .hotel-container {
     /* margin-top: 50px; */
     /* align-items: center; */
@@ -53,4 +29,14 @@
     /* margin-top: 50px; */
     /* align-items: center; */
     text-align: center;
+}
+
+.mistake-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width:80%;
 }

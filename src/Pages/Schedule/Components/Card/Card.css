@@ -1,55 +1,85 @@
-.card-places {
+.card {
+    display:flex;
+    flex-direction: row;
     height: 511px;
     width:362px;
     /* background-color: brown; */
     background-image: url("../../../../assets/images/poster-template.png");
     background-size: cover;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px;
     margin-left:30px;
-    margin-right:30px;
+    margin-right:30px; */
     align-items: center;
     justify-content: center;
-    padding-left: 2.41%;
-    padding-right: 2.46%;
+    /* padding-left: 2.41%;
+    padding-right: 2.46%; */
 }
 .card-reshot {
+    display:flex;
+    flex-direction: row;
     height: 511px;
     width:362px;
     /* background-color: brown; */
     background-image: url("../../../../assets/images/poster-template.png");
     background-size: cover;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px;
     margin-left:55px;
-    margin-right:55px;
+    margin-right:55px; */
     align-items: center;
     justify-content: center;
-    padding-left: 2.4%;
-    padding-right: 2.3%;
+    /* padding-left: 2.4%;
+    padding-right: 2.3%; */
 }
 
+.card-left {
+    display: flex;   
+    height: 100%;
+    width: 9.2%;
+    /* background-color: green; */
+}
+
+.content-container {
+    display: flex;
+    height: 100%;
+    width: 81.6%;
+    /* height: 100%; */
+    flex-direction: column;
+    /* background-color: rgb(0, 234, 255); */
+}
+
+.card-right {
+    display: flex;
+    height: 100%;
+    width: 9.2%;
+    /* background-color: blue; */
+}
+
+
 .titleContainer {
-    font-size: 30px;
+    font-size: x-large;
     font-weight: bold;
     font-family: 'playfair display', serif;
     color: #594527;
     /* background-color: #f5f5f5; */
     width:100%;
-    height:17%;
+    height:21.3%;
     justify-content: center;
     align-items: center;
     display: flex;
-    padding-top: 2%;    
-    padding-bottom: 5%;
+    /* padding-top: 2%;    
+    padding-bottom: 5%; */
     cursor:pointer;
 }
 
+
 .image-container {
-    height:41.79%;
+    display: flex;;
+    height:41.9%;
     width: 100%;
-    /* margin-left: 30px; */
+    /* margin-left: 30px;
     margin-top: 1.5px;
-    /* margin-bottom: 20px; */
-    background-color: white;
+    margin-bottom: 20px; */
+    /* background-color: red; */
 }
 .image {
     height: 100%;
@@ -59,10 +89,11 @@
 }
 
 .bottomContainer {
-    height: 34%;
+    display: flex;
+    height: 36.8%;
     width: 100%;
     /* background-color: blue; */
-    display: flex;
+    
     flex-direction: column;
     justify-content: center;
     align-items: center;

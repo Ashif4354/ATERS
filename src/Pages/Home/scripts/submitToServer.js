@@ -1,6 +1,6 @@
 
 
-const submitToServer = async (data, setPlaceData, setSubmit, setErrorMessage, recaptchaRef) => {
+const submitToServer = async (data, setResultID, setSubmit, setErrorMessage, recaptchaRef) => {
     const url = process.env.REACT_APP_server_url + '/setsail'
     const options = {
         method: 'POST',
@@ -14,7 +14,7 @@ const submitToServer = async (data, setPlaceData, setSubmit, setErrorMessage, re
         .then(res => {
             // console.log(res)
             if (res.success) {
-                setPlaceData(res)
+                setResultID(res.id)
             } else {
                 setSubmit(false)
                 recaptchaRef.current.reset()

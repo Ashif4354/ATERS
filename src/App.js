@@ -5,7 +5,8 @@ import SignUp from './Pages/SignUp/SignUp';
 import Home from './Pages/Home/Home';
 import Footer from './Components/Footer/Footer';
 import SignIn from './Pages/SignIn/SignIn';
-import Result from './Pages/Results/Result';
+import Schedule from './Pages/Schedule/Schedule';
+import { ScheduleBlank } from './Pages/Schedule/Schedule';
 
 
 function App() {
@@ -16,9 +17,11 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signin' element={<SignIn />} />
-        <Route path='/results' element={<Result />} />
+        <Route path='/schedule' element={<Schedule />} />
+        {/* <Route path='/schedule/:id' element={<Schedule />} /> */}
+
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }

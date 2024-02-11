@@ -22,7 +22,7 @@ const SignUp = () => {
     const navigate = useNavigate()
 
 
-    const handleSignUp = async (event) => {
+    const handleSignUp = (event) => {
         event.preventDefault();
         if (password !== confirmPassword) {
             alert("Passwords do not match")
@@ -69,7 +69,8 @@ const SignUp = () => {
                     recaptchaRef.current.reset()
                 }                
 
-            }).catch(error => {
+            })
+            .catch(error => {
                 console.log(error)
             })
 
@@ -103,6 +104,9 @@ const SignUp = () => {
                 setUser(loggedInUser)
                 createSession(loggedInUser)
                 navigate('/')
+            })
+            .catch((error) => {
+                console.log(error);
             })
     };
 

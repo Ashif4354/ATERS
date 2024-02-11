@@ -58,6 +58,9 @@ const SignIn = () => {
                 createSession(loggedInUser)
                 navigate('/')
             })
+            .catch((error) => {
+                console.log(error);
+            })
 
     };
 
