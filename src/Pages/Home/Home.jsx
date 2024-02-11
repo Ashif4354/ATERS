@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { TextField } from "@mui/material";
-import BasicDatePicker from "./Components/BasicDatePicker";
+import BasicDatePicker from "./Components/BasicDatePicker/BasicDatePicker";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import ReCAPTCHA from "react-google-recaptcha";
@@ -9,6 +9,9 @@ import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import submitToServer from "./scripts/submitToServer";
 import AppHeader from "../../Components/AppHeader/AppHeader";
+import SimpleDialog from "./Components/SimpleDialog/SimpleDialog";
+import { getSession } from "../../scripts/Session";
+import Footer from "../../Components/Footer/Footer";
 
 const Home = () => {
 
@@ -19,6 +22,7 @@ const Home = () => {
     const [placeData, setPlaceData] = useState(null);
     const [submit, setSubmit] = useState(false);
     const recaptchaRef = useRef();
+    const [dialogOpen, setDialogOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -53,6 +57,9 @@ const Home = () => {
         } else if (recaptchaRef.current.getValue() === "") {
             setErrorMessage('*Please complete the captcha');
             return
+        } else if (!getSession()) {
+            setDialogOpen(true);
+            return
         }
         // console.log(toDate - fromDate);
         setErrorMessage('');
@@ -78,6 +85,7 @@ const Home = () => {
     return (
         <div className="main-container">
             <AppHeader />
+            <SimpleDialog open={dialogOpen} setOpen={setDialogOpen}/>
             <div className="middle-container">
                 <h2 className="heading">Plan your Adventure</h2>
                 <div className="form-fields">
