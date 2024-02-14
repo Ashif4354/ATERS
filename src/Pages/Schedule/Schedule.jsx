@@ -19,7 +19,7 @@ const Schedule = () => {
     const [snackBarOpen, setSnackBarOpen] = useState(false);
     
     const handleshare = () => {
-        navigator.clipboard.writeText(`${process.env.REACT_APP_server_url}/schedule?id=${resultID}`);
+        navigator.clipboard.writeText(`${process.env.REACT_APP_client_url}/schedule?id=${resultID}`);
         setSnackBarOpen(true);
     }
 
