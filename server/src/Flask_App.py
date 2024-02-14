@@ -7,7 +7,7 @@ from .end_points.sign_up.sign_up import SignUp
 from .end_points.set_sail.set_sail import SetSail
 from .end_points.schedule.schedule import Schedule
 
-from .lib.grecaptcha.verify_recaptcha import verify_recaptcha
+from .lib.grecaptcha.verify_recaptcha import verify_recaptcha, verify_recaptcha_invisible
 
 app = Flask(__name__)
 api = Api(app)
@@ -28,6 +28,25 @@ def before_request():
                 'success': False,
                 'message': 'Recaptcha token not found',
             })
+        
+
+    # elif request.method == 'GET':
+    #     recaptcha_token = request.args.get('recaptchaToken')
+
+    #     if recaptcha_token:
+    #         if not verify_recaptcha_invisible(recaptcha_token):
+    #             return jsonify({
+    #                 'success': False,
+    #                 'message': 'Recaptcha failed',
+    #             })
+            
+    #     else:
+    #         return jsonify({
+    #             'success': False,
+    #             'message': 'Recaptcha token not found',
+    #         })
+
+            
 
 api.add_resource(Default, '/')
 api.add_resource(SignUp, '/signup')

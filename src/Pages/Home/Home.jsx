@@ -47,7 +47,7 @@ const Home = () => {
         } else if (!toDate) {
             setErrorMessage('*Please select a "TO" date');
             return
-        } else if (fromDate < new Date().getTime()){
+        } else if (fromDate < new Date().getTime()) {
             console.log(fromDate, new Date().getTime());
             setErrorMessage('* Select a date in the future');
             return
@@ -55,6 +55,10 @@ const Home = () => {
         } else if (fromDate > toDate) {
             setErrorMessage('*"FROM" date cannot be greater than "TO" date');
             return
+        } else if (((toDate - fromDate) / 86400000) > 5 ) {
+            setErrorMessage('*We can only plan for 6 days, kindly select a shorter duration');
+            return
+
         } else if (recaptchaRef.current.getValue() === "") {
             setErrorMessage('*Please complete the captcha');
             return
@@ -66,6 +70,7 @@ const Home = () => {
         setErrorMessage('');
 
         const data = {
+            name: user.name,
             email: user.email,
             destination: destination,
             fromDate: fromDate.format('DD-MM-YYYY'),
@@ -89,65 +94,68 @@ const Home = () => {
     }, [])
 
     return (
-        <div className="main-container">
-            <AppHeader />
-            <SimpleDialog open={dialogOpen} setOpen={setDialogOpen}/>
-            <div className="middle-container">
-                <h2 className="heading">Plan your Adventure</h2>
-                <div className="form-fields">
-                    <TextField
-                        className="form-input"
-                        label="Destination City"
-                        variant="outlined"
-                        size="medium"
-                        margin="dense"
-                        type="text"
-                        value={destination}
-                        onChange={(e) => setDestination(e.target.value)}
-                        required
-                    />
+        <div>
+            <div className="main-container">
+                <AppHeader />
+                <SimpleDialog open={dialogOpen} setOpen={setDialogOpen} />
+                <div className="middle-container">
+                    <h2 className="heading">Plan your Adventure</h2>
+                    <div className="form-fields">
+                        <TextField
+                            className="form-input"
+                            label="Destination City"
+                            variant="outlined"
+                            size="medium"
+                            margin="dense"
+                            type="text"
+                            value={destination}
+                            onChange={(e) => setDestination(e.target.value)}
+                            required
+                        />
 
-                    {/* <DateRangePickerValue/> */}
-                    <div className="date-container">
-                        <div className="date-picker-from">
-                            <BasicDatePicker label='FROM' value={fromDate} setDate={setFromDatehandler} />
+                        {/* <DateRangePickerValue/> */}
+                        <div className="date-container">
+                            <div className="date-picker-from">
+                                <BasicDatePicker label='FROM' value={fromDate} setDate={setFromDatehandler} />
+                            </div>
+                            <div className="date-picker-to">
+                                <BasicDatePicker label='TO' value={toDate} setDate={setToDatehandler} />
+                            </div>
                         </div>
-                        <div className="date-picker-to">
-                            <BasicDatePicker label='TO' value={toDate} setDate={setToDatehandler} />
-                        </div>
-                    </div>
-                    <p className='error-message'>
-                        {errorMessage}
-                    </p>
-                    <div className="recaptcha-container">
-                        <ReCAPTCHA
-                            sitekey={process.env.REACT_APP_g_recaptcha_site_key}
-                            ref={recaptchaRef}
-                            size="normal"
+                        <p className='error-message'>
+                            {errorMessage}
+                        </p>
+                        <div className="recaptcha-container">
+                            <ReCAPTCHA
+                                sitekey={process.env.REACT_APP_g_recaptcha_site_key}
+                                ref={recaptchaRef}
+                                size="normal"
                             // type='audio'
                             // theme="dark"
                             // size="invisible"
-                        />
-                    </div> 
-                    <button className="set-sail-btn" onClick={submitSetSail}>
-                        {
-                            submit ? (
-                                <div className='loading-container'>
-                                    <p className='loading-text'>Loading  </p>
-                                    {<Box sx={{ display: 'flex' }}>
-                                        <CircularProgress />
-                                    </Box>}
-                                </div>
-                            ) : 'Set Sail'
-                        }
-                    </button>
+                            />
+                        </div>
+                        <button className="set-sail-btn" onClick={submitSetSail}>
+                            {
+                                submit ? (
+                                    <div className='loading-container'>
+                                        <p className='loading-text'>Loading  </p>
+                                        {<Box sx={{ display: 'flex' }}>
+                                            <CircularProgress />
+                                        </Box>}
+                                    </div>
+                                ) : 'Set Sail'
+                            }
+                        </button>
 
 
+
+                    </div>
 
                 </div>
 
             </div>
-
+            <Footer />
         </div>
     );
 }

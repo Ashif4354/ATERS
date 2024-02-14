@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import SignUp from './Pages/SignUp/SignUp';
 import Home from './Pages/Home/Home';
-import Footer from './Components/Footer/Footer';
+// import Footer from './Components/Footer/Footer';
 import SignIn from './Pages/SignIn/SignIn';
 import Schedule from './Pages/Schedule/Schedule';
-import { ScheduleBlank } from './Pages/Schedule/Schedule';
+// import { ScheduleBlank } from './Pages/Schedule/Schedule';
 
 
 function App() {

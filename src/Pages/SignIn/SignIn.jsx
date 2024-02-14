@@ -9,6 +9,7 @@ import GoogleButton from 'react-google-button';
 import { Link, useNavigate } from 'react-router-dom';
 import AppHeader from '../../Components/AppHeader/AppHeader';
 import { createSession } from '../../scripts/Session';
+import Footer from '../../Components/Footer/Footer';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -31,7 +32,7 @@ const SignIn = () => {
                 createSession(loggedInUser)
                 navigate('/')
 
-                
+
             })
             .catch((error) => {
                 setError(error.message);
@@ -65,49 +66,52 @@ const SignIn = () => {
     };
 
     return (
-        <div className='main-container'>
-            <AppHeader />
-            <div className='form-container'>
-                <h2 className="heading">Sign In</h2>
-                <div className='form-fields'>
-                    <TextField
-                        className="form-input"
-                        label="Email"
-                        variant="outlined"
-                        size="small"
-                        margin="dense"
-                        type="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        required
-                    />
-                    <TextField
-                        className="form-input"
-                        label="Password"
-                        variant="outlined"
-                        size="small"
-                        margin="dense"
-                        type="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        required
-                    />
+        <div>
+            <div className='main-container'>
+                <AppHeader />
+                <div className='form-container'>
+                    <h2 className="heading">Sign In</h2>
+                    <div className='form-fields'>
+                        <TextField
+                            className="form-input"
+                            label="Email"
+                            variant="outlined"
+                            size="small"
+                            margin="dense"
+                            type="email"
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
+                            required
+                        />
+                        <TextField
+                            className="form-input"
+                            label="Password"
+                            variant="outlined"
+                            size="small"
+                            margin="dense"
+                            type="password"
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                            required
+                        />
 
-                    <p className='error-message'>
-                        {error}
-                    </p>
+                        <p className='error-message'>
+                            {error}
+                        </p>
 
-                    <button className='signin-btn' onClick={handleEmailSignIn}>Sign In</button>
+                        <button className='signin-btn' onClick={handleEmailSignIn}>Sign In</button>
 
-                    <p className="or-text">or</p>
-                    <div className='google-btn-container'>
-                        <GoogleButton onClick={handleGoogleSignIn}>Sign Up with Google</GoogleButton>
+                        <p className="or-text">or</p>
+                        <div className='google-btn-container'>
+                            <GoogleButton onClick={handleGoogleSignIn}>Sign Up with Google</GoogleButton>
+                        </div>
+
+                        <p className="signin-text">Don't have an account? <Link to='/signup'>Sign Up</Link></p>
+
                     </div>
-
-                    <p className="signin-text">Don't have an account? <Link to='/signup'>Sign Up</Link></p>
-
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

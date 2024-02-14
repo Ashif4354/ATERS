@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import { createSession } from "../../scripts/Session";
 import AppHeader from "../../Components/AppHeader/AppHeader";
+import Footer from "../../Components/Footer/Footer";
 
 
 const SignUp = () => {
@@ -33,7 +34,7 @@ const SignUp = () => {
         } else if (recaptchaRef.current.getValue() === "") {
             alert('*Complete the captcha');
             return
-        } 
+        }
 
         const data = {
             name: name,
@@ -60,14 +61,14 @@ const SignUp = () => {
                         name: response.name,
                         email: response.email,
                         photoURL: response.photoURL,
-                    }    
+                    }
                     setUser(loggedInUser)
                     createSession(loggedInUser)
                     navigate('/')
                 } else {
                     alert(response.message)
                     recaptchaRef.current.reset()
-                }                
+                }
 
             })
             .catch(error => {
@@ -119,80 +120,83 @@ const SignUp = () => {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
     return (
-        <div className="main-container">
-            <AppHeader />
+        <div>
+            <div className="main-container">
+                <AppHeader />
 
-            <div className="form-container">
-                <h2 className="heading">Sign Up</h2>
-                <form onSubmit={handleSignUp} className="form-fields">
-                    <TextField
-                        className="form-input"
-                        label="Name"
-                        variant="outlined"
-                        size="small"
-                        margin="dense"
-                        type="text"
-                        value={name}
-                        onChange={(event) => setName(event.target.value)}
-                        required
-                    />
-                    <TextField
-                        className="form-input"
-                        label="Email"
-                        variant="outlined"
-                        size="small"
-                        margin="dense"
-                        type="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        required
-                    />
-                    <TextField
-                        className="form-input"
-                        label="Password"
-                        variant="outlined"
-                        size="small"
-                        margin="dense"
-                        type="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        required
-                    />
-                    <TextField
-                        className="form-input"
-                        label="Confirm Password"
-                        variant="outlined"
-                        size="small"
-                        margin="dense"
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(event) => setConfirmPassword(event.target.value)}
-                        required
-                    />
-                    <div className="checkbox-container">
-                        <Checkbox {...label} required />
-                        <p className="check-box-text">I agree to the <Link to="/tc">Terms and Conditions</Link> and <Link to="/privacypolicy">Privacy Policy</Link></p>
-                    </div>
-                    <div className="captcha-container">
-                        <ReCAPTCHA
-                            sitekey={process.env.REACT_APP_g_recaptcha_site_key}
-                            ref={recaptchaRef}
+                <div className="form-container">
+                    <h2 className="heading">Sign Up</h2>
+                    <form onSubmit={handleSignUp} className="form-fields">
+                        <TextField
+                            className="form-input"
+                            label="Name"
+                            variant="outlined"
+                            size="small"
+                            margin="dense"
+                            type="text"
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                            required
                         />
-                    </div>
-                    
-                    <button className='signup-btn' type="submit">Sign Up</button>
-                    {/* <button className='signup-btn'onClick={displayCaptcha}>Sign Up</button> */}
+                        <TextField
+                            className="form-input"
+                            label="Email"
+                            variant="outlined"
+                            size="small"
+                            margin="dense"
+                            type="email"
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
+                            required
+                        />
+                        <TextField
+                            className="form-input"
+                            label="Password"
+                            variant="outlined"
+                            size="small"
+                            margin="dense"
+                            type="password"
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                            required
+                        />
+                        <TextField
+                            className="form-input"
+                            label="Confirm Password"
+                            variant="outlined"
+                            size="small"
+                            margin="dense"
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(event) => setConfirmPassword(event.target.value)}
+                            required
+                        />
+                        <div className="checkbox-container">
+                            <Checkbox {...label} required />
+                            <p className="check-box-text">I agree to the <Link to="/tc">Terms and Conditions</Link> and <Link to="/privacypolicy">Privacy Policy</Link></p>
+                        </div>
+                        <div className="captcha-container">
+                            <ReCAPTCHA
+                                sitekey={process.env.REACT_APP_g_recaptcha_site_key}
+                                ref={recaptchaRef}
+                            />
+                        </div>
 
-                </form>
-                <p className="or-text">or</p>
-                <div className='google-btn-container'>
-                    <GoogleButton onClick={handleGoogleSignIn}>Sign Up with Google</GoogleButton>
+                        <button className='signup-btn' type="submit">Sign Up</button>
+                        {/* <button className='signup-btn'onClick={displayCaptcha}>Sign Up</button> */}
+
+                    </form>
+                    <p className="or-text">or</p>
+                    <div className='google-btn-container'>
+                        <GoogleButton onClick={handleGoogleSignIn}>Sign Up with Google</GoogleButton>
+                    </div>
+                    <p>
+                        {/* Already have an account? <Link to="/signin">Sign In</Link> */}
+                        Already have an account? <Link to="/signin">Sign In</Link>
+                    </p>
                 </div>
-                <p>
-                    {/* Already have an account? <Link to="/signin">Sign In</Link> */}
-                    Already have an account? <Link to="/signin">Sign In</Link>
-                </p>
             </div>
+            <Footer />
         </div>
     );
 };

@@ -1,10 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import './Card.css';
 
 const Card = (props) => {
     const [day, setDay] = useState('');
     const [time, setTime] = useState('');
     const [price, setPrice] = useState('');
+    const [imageIndex, setImageIndex] = useState(0);
+
+    const incrementImageIndex = () => {
+        if (imageIndex < 9) {
+            setImageIndex((prev) => prev + 1);
+        }
+    }
+
+    const decrementImageIndex = () => {
+        if (imageIndex > 0) {
+            setImageIndex((prev) => prev - 1);
+        }
+    }
 
     useEffect(() => {
         if (props.cardtype === 'card-places') {
@@ -19,22 +34,33 @@ const Card = (props) => {
                 setTime('7:00 PM')
             }
         } else {
-            if (props.reshottype === 'hotel') {
-                setPrice((Math.floor(Math.random() * 10) + 1) * 1000);
-            } else if (props.reshottype === 'restaurant') {
-                setPrice((Math.floor(Math.random() * 10) + 1) * 100);
-            }
+            // if (props.reshottype === 'hotel') {
+            //     setPrice((Math.floor(Math.random() * 10) + 1) * 1000);
+            // } else if (props.reshottype === 'restaurant') {
+            //     setPrice((Math.floor(Math.random() * 10) + 1) * 100);
+            // }
+            setPrice(props.price);
         }
-    }, [props.cardtype, props.index, props.reshottype])
+    }, [props.cardtype, props.index, props.price])
 
     return (
         <div className='card'>
             <div className='card-left' />
             <div className='content-container'>
                 <div className='titleContainer' onClick={() => window.open(props.url)}>{props.name}</div>
-                <div className='image-container'>
+                <div className='image-container' style={{ backgroundImage: `url(${props.image[imageIndex]})`, backgroundSize: 'cover' }}>
+                    <div className='left-arrow-container'>
+                        <button className='left-arrow arrow' style={{display:imageIndex === 0 ? 'none' : ''}} onClick={decrementImageIndex}><ArrowLeftIcon fontSize='large'/></button>
 
-                    <img className='image' src={props.image} alt='place' />
+                    </div>
+
+                    <div className='space-between-arrows'/>
+
+                    <div className='right-arrow-container'>
+                        <button className='right-arrow arrow' style={{display:imageIndex === 9 ? 'none' : ''}} onClick={incrementImageIndex}><ArrowRightIcon fontSize='large'/></button>
+                    </div>
+
+                    {/* <img className='image' src={props.image} alt='place' /> */}
 
                 </div>
                 <div className='bottomContainer'>

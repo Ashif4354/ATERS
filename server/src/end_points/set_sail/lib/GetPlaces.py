@@ -1,13 +1,15 @@
 from os import environ
-from json import dump
+from json import dump, loads
 
 from ....lib.Exceptions.Exceptions import InvalidPlace
+from .GoogleGenAI import GoogleGenAI
 
 class GetPlaces:
     def __init__(self, session, place):
         self.session = session
         self.place = place
         self.coords = self.get_coords()
+        self.GGAI = GoogleGenAI(self.place)
 
         if self.coords is None:
             raise InvalidPlace('Invalid Place')
@@ -91,6 +93,7 @@ class GetPlaces:
         }
         places = self.fetch_places_from_maps(data, 'places')
         response = {}
+        response_display_names = []
 
         for i in range(days):
             day = 'day{}'.format(i+1)
@@ -100,6 +103,7 @@ class GetPlaces:
                 place = {}
 
                 place['name'] = places[i*3+j]['displayName']['text']
+                response_display_names.append(place['name'])
                 try:
                     place['description'] = places[i*3+j]['editorialSummary']['text']
                 except KeyError:
@@ -110,8 +114,8 @@ class GetPlaces:
                 place['gmaps_url'] = places[i*3+j]['googleMapsUri']
                 
                 photo_names = []
-                for k in range(1):
-                # for k in range(len(places[i]['photos'])):
+                # for k in range(1):
+                for k in range(len(places[i*3+j]['photos'])):
                     try:
                         photo_names.append(places[i*3+j]['photos'][k]['name'])
                     except IndexError:
@@ -121,7 +125,7 @@ class GetPlaces:
                 response[day].append(place)
             
 
-        return response
+        return response, response_display_names
 
     def get_hotels(self):
 
@@ -149,11 +153,13 @@ class GetPlaces:
         places = places[:3]
 
         response = []
+        
 
         for place in places:
             place_ = {}
 
             place_['name'] = place['displayName']['text']
+            
             try:
                 place_['description'] = place['editorialSummary']['text']
             except KeyError:
@@ -163,10 +169,11 @@ class GetPlaces:
 
             place_['gmaps_url'] = place['googleMapsUri']
             place_['rating'] = place['rating']
-             
+            place_['price'] = self.get_place_price(place_['name'], 'hotel')
+
             photo_names = []
-            for k in range(1):
-            # for k in range(len(places[i]['photos'])):
+            # for k in range(1):
+            for k in range(len(place['photos'])):
                 try:
                     photo_names.append(place['photos'][k]['name'])
                 except IndexError:
@@ -230,7 +237,8 @@ class GetPlaces:
         for place in places:
             place_ = {}
 
-            place_['name'] = place['displayName']['text']
+            place_['name'] = place['displayName']['text'] 
+
             try:
                 place_['description'] = place['editorialSummary']['text']
             except KeyError:
@@ -240,10 +248,11 @@ class GetPlaces:
 
             place_['gmaps_url'] = place['googleMapsUri']
             place_['rating'] = place['rating']
+            place_['price'] = self.get_place_price(place_['name'], 'restaurant')
              
             photo_names = []
-            for k in range(1):
-            # for k in range(len(places[i]['photos'])):
+            # for k in range(1):
+            for k in range(len(place['photos'])):
                 try:
                     photo_names.append(place['photos'][k]['name'])
                 except IndexError:
@@ -291,6 +300,34 @@ class GetPlaces:
             uris.append(self.session.get(url, params=params).json()['photoUri'])
 
         return uris
+    
+    def get_place_price(self, place, type):
+
+        action = 'stay' if type == 'hotel' else 'eat'
+
+        prompt = [
+            f'Iam planning to {action} at {place} in {self.place}',
+            f'Generate me an average amount in INR for {action}ing at this place',
+            'I want it in JSON format',
+            """
+            {
+                "price": 1000
+            }
+            """,
+            'The price should be compulsorily a numeric values only and dont include the currency symbol(₹) or any other words'
+        ]
+        response = self.GGAI.generate_from_prompt(prompt)
+        print(response.text, '\n')
+
+        try:
+            response = int(loads(response.text.strip('`'))['price'])
+
+            return response
+        except Exception as e:
+            print('Exception', e)
+            return 900
+
+        
 
             
 

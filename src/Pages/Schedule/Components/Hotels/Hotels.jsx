@@ -15,8 +15,9 @@ const Hotels = (props) => {
                         name={props.places[0].name}
                         description={props.places[0].description}
                         url={props.places[0].gmaps_url}
-                        image={props.places[0].images[0]}
+                        image={props.places[0].images}
                         rating={props.places[0].rating}
+                        price={props.places[0].price}
                     />
                 </div>
                 <div className='each-card'>
@@ -26,8 +27,9 @@ const Hotels = (props) => {
                         name={props.places[1].name}
                         description={props.places[1].description}
                         url={props.places[1].gmaps_url}
-                        image={props.places[1].images[0]}
+                        image={props.places[1].images}
                         rating={props.places[1].rating}
+                        price={props.places[1].price}
 
                     />
                 </div>
@@ -38,8 +40,9 @@ const Hotels = (props) => {
                         name={props.places[2].name}
                         description={props.places[2].description}
                         url={props.places[2].gmaps_url}
-                        image={props.places[2].images[0]}
+                        image={props.places[2].images}
                         rating={props.places[2].rating}
+                        price={props.places[2].price}
                     />
                 </div>
             </div>
