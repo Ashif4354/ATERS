@@ -317,7 +317,7 @@ class GetPlaces:
             'The price should be compulsorily a numeric values only and dont include the currency symbol(₹) or any other words'
         ]
         response = self.GGAI.generate_from_prompt(prompt)
-        print(response.text, '\n')
+        # print(response.text, '\n')
 
         try:
             response = int(loads(response.text.strip('`'))['price'])
