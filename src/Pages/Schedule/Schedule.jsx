@@ -64,7 +64,7 @@ const Schedule = () => {
                     </div>
 
                     <ul className='details-data-container'>
-                        <li className='detail'><span className='details-attribute'>Desination:</span> {schedule.destination}</li>
+                        <li className='detail'><span className='details-attribute'>Destination:</span> {schedule.destination}</li>
                         <li className='detail'><span className='details-attribute'>From:</span> {schedule.from}</li>
                         <li className='detail'><span className='details-attribute'>To:</span> {schedule.to}</li>
                         <li className='detail'><span className='details-attribute'>No. of days:</span> {schedule.days}</li>
@@ -98,7 +98,6 @@ const Schedule = () => {
                 <SnackBar open={snackBarOpen} handleClose={handleClose} />
                 <Footer />
             </div>
-
         </div>
     )
 }

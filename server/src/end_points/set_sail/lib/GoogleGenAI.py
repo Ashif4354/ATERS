@@ -11,7 +11,7 @@ class GoogleGenAI:
             'temperature': 1,
             'top_p': 1,
             'top_k' : 1,
-            'max_output_tokens': 2048
+            'max_output_tokens': 12345
         }
 
         safety_settings = [
@@ -51,16 +51,9 @@ class GoogleGenAI:
             'I want it in JSON format',
             """
             {
-                "places": [
-                    {
-                        "name": "Place 1",
-                        "expense": 1000
-                    },
-                    {
-                        "name": "Place 2",
-                        "expense": 2000
-                    }
-                ]
+                place: expense,
+                place: expense,
+                place: expense
             }
             """,
             'Dont omit any place and give the response for all the places mentioned above',
@@ -73,7 +66,7 @@ class GoogleGenAI:
         response = response.text.strip('`')
         try:
             response = loads(response)
-            total_price = sum([x['expense'] for x in response['places']])
+            total_price = sum([response[x] for x in response])
 
             return total_price
         except:
@@ -87,4 +80,7 @@ if __name__ == '__main__':
     from dotenv import load_dotenv
     load_dotenv()
     GGAI = GoogleGenAI('Chennai')
-    print(GGAI.generate_budget_places(['besant nagar beach', 'vgp universal kingdom', 'vgp marine kingdom']).text)
+    print(GGAI.generate_budget_of_places(['besant nagar beach', 'vgp universal kingdom', 'vgp marine kingdom',]))
+    # genai.configure(api_key = getenv('ATERS_GCP_API_KEY'))
+
+    # print(genai.get_model('models/gemini-pro', client=None))

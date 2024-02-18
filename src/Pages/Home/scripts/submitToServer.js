@@ -2,6 +2,7 @@
 
 const submitToServer = async (data, setResultID, setSubmit, setErrorMessage, recaptchaRef) => {
     const url = process.env.REACT_APP_server_url + '/setsail'
+    // const url = 'http://localhost:5000/setsail'
     const options = {
         method: 'POST',
         headers: {
