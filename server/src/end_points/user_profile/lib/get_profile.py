@@ -8,7 +8,7 @@ def get_profile(email):
     mongodb.disconnect()
 
     if profile:
-        profile['schedules'] = profile['schedules'].reverse()
+        profile['schedules'].reverse()
         
         return profile
     else:
