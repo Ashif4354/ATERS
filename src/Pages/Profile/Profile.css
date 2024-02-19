@@ -1,0 +1,98 @@
+.profile-page {
+    /* justify-content: center;     */
+    margin: auto;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    /* background-color: aqua; */
+
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: 50%;
+    border-radius: 40px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    /* padding-bottom: 20px; */
+    background-image: url('../../assets/images/poster-bg.png');
+    background-size: cover;
+    /* background-color: aquamarine; */
+}
+
+.profile-photo-container {
+    display: flex;
+    height: 150px;
+    width: 170px;
+    /* background-color: aqua; */
+}
+
+.profile-photo {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: black;
+    border-width: 10px;
+}
+
+.user-profile-details-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    /* background-color: aqua; */
+}
+
+.detail-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-right: 10px;
+    font-family: 'Playfair Display SC', serif;
+}
+
+.space-between-details {
+    display: flex;
+    width: 5%
+}
+
+.detail-value {
+    font-size: 30px;
+}
+
+.schedules-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 700px;
+    width: 55%;
+    border-radius: 40px;
+    background-image: url('../../assets/images/poster-bg.png');
+    background-size: cover;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+    /* background-color: aqua; */
+}
+
+.schedules-scroll {
+    /* display: flex; */
+    flex-direction: column;
+    /* align-items: center; */
+    height: 70%;
+    /* width: 90%; */
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: scroll;
+    /* background-color: aqua; */
+}

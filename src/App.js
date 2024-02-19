@@ -8,6 +8,7 @@ import SignIn from './Pages/SignIn/SignIn';
 import Schedule from './Pages/Schedule/Schedule';
 import Profile from './Pages/Profile/Profile';
 // import { ScheduleBlank } from './Pages/Schedule/Schedule';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 
 function App() {
@@ -24,6 +25,10 @@ function App() {
 
       </Routes>
       {/* <Footer /> */}
+      <ReCAPTCHA
+        sitekey={process.env.REACT_APP_g_recaptcha_invisible_site_key}
+        size='invisible'
+      />
     </BrowserRouter>
   );
 }

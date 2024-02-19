@@ -11,7 +11,8 @@ def generate_days(from_, to_):
     return all_days
 
 def get_date():
-    return datetime.now().strftime('%d-%m-%Y')
+    return datetime.now().strftime('%d-%m-%Y %H:%M:%S')
 
 if __name__ == '__main__':
-    generate_days('01-01-2021', '05-01-2021')
+    # generate_days('01-01-2021', '05-01-2021')
+    print(get_date())

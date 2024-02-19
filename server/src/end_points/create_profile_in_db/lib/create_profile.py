@@ -1,4 +1,5 @@
 from ....config.mongodb_config import MongoDbConfig
+from pymongo.errors import DuplicateKeyError
 
 def create_profile(user):
     user_name = user['name']
@@ -17,5 +18,8 @@ def save_in_db(profile):
     db = MongoDbConfig()
     db.connect()
     collection = db.db['UserProfiles']
-    collection.insert_one(profile)
+    try:
+        collection.insert_one(profile)
+    except DuplicateKeyError:
+        pass
     db.disconnect()

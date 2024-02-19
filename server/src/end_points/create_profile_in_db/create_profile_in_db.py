@@ -7,6 +7,7 @@ class CreateProfileInDB(Resource):
     def post(self):
         data = request.json
         create_profile(data)
+        return {'profileCreated': True}
 
     def get(self):
         return {'createProfile': 'working'}

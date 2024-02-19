@@ -90,7 +90,6 @@ const SignUp = () => {
     };
 
     const handleGoogleSignIn = async () => {
-        recaptchaRefInvisible.current.execute();
 
         signInWithPopup(auth, provider)
             // signInWithRedirect(auth, provider) // eslint-disable-next-line
@@ -126,6 +125,7 @@ const SignUp = () => {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
     useEffect(() => {
+        recaptchaRefInvisible.current.execute();
         setUser(getSession())
     }, [])
 
@@ -204,7 +204,6 @@ const SignUp = () => {
                                 <GoogleButton onClick={handleGoogleSignIn}>Sign Up with Google</GoogleButton>
                             </div>
                             <p>
-                                {/* Already have an account? <Link to="/signin">Sign In</Link> */}
                                 Already have an account? <Link to="/signin">Sign In</Link>
                             </p>
                         </div>

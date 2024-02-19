@@ -23,6 +23,10 @@ const AppHeader = (props) => {
         if (location.pathname !== '/schedule'){
             navigate(location.pathname);
         }
+
+        if (location.pathname === '/profile'){
+            navigate('/');
+        }
     }
 
     const onProfileClick = () => {

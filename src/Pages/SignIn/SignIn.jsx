@@ -43,7 +43,6 @@ const SignIn = () => {
     }
 
     const handleGoogleSignIn = async () => {
-        recaptchaRef.current.execute();
 
         signInWithPopup(auth, provider)
             // signInWithRedirect(auth, provider)
@@ -74,6 +73,7 @@ const SignIn = () => {
     };
 
     useEffect(() => {
+        recaptchaRef.current.execute();
         setUser(getSession());
     }, [])
 
