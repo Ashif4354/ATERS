@@ -96,7 +96,7 @@ const Home = () => {
     return (
         <div>
             <div className="main-container">
-                <AppHeader />
+                <AppHeader user={user} setUser={setUser}/>
                 <SimpleDialog open={dialogOpen} setOpen={setDialogOpen} />
                 <div className="middle-container">
                     <h2 className="heading">Plan your Adventure</h2>

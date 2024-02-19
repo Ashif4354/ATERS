@@ -17,6 +17,7 @@ const Schedule = () => {
     const resultID = searchParams.get('id');
     const [schedule, setSchedule] = useState(null);
     const [snackBarOpen, setSnackBarOpen] = useState(false);
+    const [user, setUser] = useState(null);
     
     const handleshare = () => {
         navigator.clipboard.writeText(`${process.env.REACT_APP_client_url}/schedule?id=${resultID}`);
@@ -43,14 +44,14 @@ const Schedule = () => {
     }, []);
 
     if (resultID === null) {
-        return <ScheduleBlank />
+        return <ScheduleBlank user={user} setUser={setUser}/>
     } else if (schedule === null) {
-        return <ScheduleLoading />
+        return <ScheduleLoading user={user} setUser={setUser}/>
     }
 
     return (
         <div className='main-container'>
-            <AppHeader />
+            <AppHeader user={user} setUser={setUser} />
             <div className='scroll-container'>
 
                 <div className='details-container'>
@@ -102,11 +103,11 @@ const Schedule = () => {
     )
 }
 
-const ScheduleBlank = () => {
+const ScheduleBlank = (props) => {
     return (
         <div>
             <div className='main-container'>
-                <AppHeader />
+                <AppHeader user={props.user} setUser={props.setUser}/>
                 <div className='middle-container'>
                     <div className='mistake-text-container'>
                         <h1 >It seems you have reached this page by mistake</h1>
@@ -119,11 +120,11 @@ const ScheduleBlank = () => {
     )
 }
 
-const ScheduleLoading = () => {
+const ScheduleLoading = (props) => {
     return (
         <div>
             <div className='main-container'>
-                <AppHeader />
+                <AppHeader user={props.user} setUser={props.setUser}/>
                 <div className='middle-container'>
                     <div className='loading-container'>
                         <p className='schedule-loading-text' >Schedule Loading...</p>

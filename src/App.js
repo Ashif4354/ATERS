@@ -6,6 +6,7 @@ import Home from './Pages/Home/Home';
 // import Footer from './Components/Footer/Footer';
 import SignIn from './Pages/SignIn/SignIn';
 import Schedule from './Pages/Schedule/Schedule';
+import Profile from './Pages/Profile/Profile';
 // import { ScheduleBlank } from './Pages/Schedule/Schedule';
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/signin' element={<SignIn />} />
         <Route path='/schedule' element={<Schedule />} />
+        <Route path='/profile' element={<Profile />} />
         {/* <Route path='/schedule/:id' element={<Schedule />} /> */}
 
       </Routes>

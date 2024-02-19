@@ -8,8 +8,8 @@ import LoginBtn from './Components/LoginBtn/LoginBtn';
 import { Logout, getSession } from '../../scripts/Session';
 import ProfileDropDown from './Components/ProfileDropDown/ProfileDropDown';
 
-const AppHeader = () => {
-    const [user, setUser] = useState(null);
+const AppHeader = (props) => {
+    // const [user, setUser] = useState(null);
     const [showMenu, setShowMenu] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
@@ -18,8 +18,11 @@ const AppHeader = () => {
 
     const logout = () => {
         Logout();
-        setUser(null);
-        navigate('/');
+        props.setUser(null);
+
+        if (location.pathname !== '/schedule'){
+            navigate(location.pathname);
+        }
     }
 
     const onProfileClick = () => {
@@ -27,8 +30,9 @@ const AppHeader = () => {
     }
 
     useEffect(() => {
-        setUser(getSession());
+        props.setUser(getSession());
         // console.log(user)
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -40,13 +44,13 @@ const AppHeader = () => {
             {/* <h1>App Header</h1> */}
             <div className='mid'></div>
             <div className='right'>
-                {user ? (
+                {props.user ? (
                     <div className='user'>
 
                         {
                             location.pathname === '/' ? (
                                 <div className='username-container'>
-                                    <p className='user-name'>Welcome, {user.name}</p>
+                                    <p className='user-name'>Welcome, {props.user.name}</p>
                                 </div>
                             ) : <div className='username-container'></div>
                         }
@@ -59,11 +63,11 @@ const AppHeader = () => {
                             showMenu ? (
                                 <div className='menu'>
                                     {/* <button className='logout-btn' onClick={logout}>Logout</button> */}
-                                    <ProfileDropDown name={user.name} image={user.photoURL} logout={logout} />
+                                    <ProfileDropDown name={props.user.name} image={props.user.photoURL} logout={logout} />
 
                                 </div>
 
-                            ) : <></>
+                            ) : <div/>
                         }
                     </div>
                 ) : (location.pathname !== '/signin' && location.pathname !== '/signup' ? (

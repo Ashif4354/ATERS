@@ -1,6 +1,8 @@
 from ...config.firebase_config import *
 from firebase_admin import auth
 
+from ...end_points.create_profile_in_db.lib.create_profile import create_profile
+
 # with open('../../../firebase_config/fireBaseServiceAccountKey.json', 'r') as f:
 #     firebase = json.load(f)
 #     print(firebase, type(firebase))
@@ -17,6 +19,8 @@ def create_account(name, email, password):
             display_name=name
         )
         # print(user.email, user.uid, user.display_name)
+        create_profile({'name': user.display_name, 'email': user.email})
+        
 
         return {
             'success': True,

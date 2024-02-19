@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { auth, provider } from "../../config/firebase";// eslint-disable-next-line
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,9 +8,11 @@ import ReCAPTCHA from "react-google-recaptcha";
 import "./SignUp.css";
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
-import { createSession } from "../../scripts/Session";
+import { createSession, getSession } from "../../scripts/Session";
 import AppHeader from "../../Components/AppHeader/AppHeader";
 import Footer from "../../Components/Footer/Footer";
+import createProfileInDB from "../../scripts/createProfileInDB";
+import SignOutToContinue from "../../Components/SignOutToContinue/SignOutToContinue";
 
 
 const SignUp = () => {
@@ -20,6 +22,7 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState("");// eslint-disable-next-line
     const [user, setUser] = useState(null);
     const recaptchaRef = useRef();
+    const recaptchaRefInvisible = useRef();
     const navigate = useNavigate()
 
 
@@ -87,6 +90,7 @@ const SignUp = () => {
     };
 
     const handleGoogleSignIn = async () => {
+        recaptchaRefInvisible.current.execute();
 
         signInWithPopup(auth, provider)
             // signInWithRedirect(auth, provider) // eslint-disable-next-line
@@ -105,6 +109,8 @@ const SignUp = () => {
                 setUser(loggedInUser)
                 createSession(loggedInUser)
                 navigate('/')
+
+                createProfileInDB(recaptchaRefInvisible, user.displayName, user.email)
             })
             .catch((error) => {
                 console.log(error);
@@ -119,84 +125,103 @@ const SignUp = () => {
 
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
+    useEffect(() => {
+        setUser(getSession())
+    }, [])
+
+
     return (
         <div>
             <div className="main-container">
-                <AppHeader />
+                <AppHeader user={user} setUser={setUser}/>
 
-                <div className="form-container">
-                    <h2 className="heading">Sign Up</h2>
-                    <form onSubmit={handleSignUp} className="form-fields">
-                        <TextField
-                            className="form-input"
-                            label="Name"
-                            variant="outlined"
-                            size="small"
-                            margin="dense"
-                            type="text"
-                            value={name}
-                            onChange={(event) => setName(event.target.value)}
-                            required
-                        />
-                        <TextField
-                            className="form-input"
-                            label="Email"
-                            variant="outlined"
-                            size="small"
-                            margin="dense"
-                            type="email"
-                            value={email}
-                            onChange={(event) => setEmail(event.target.value)}
-                            required
-                        />
-                        <TextField
-                            className="form-input"
-                            label="Password"
-                            variant="outlined"
-                            size="small"
-                            margin="dense"
-                            type="password"
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                            required
-                        />
-                        <TextField
-                            className="form-input"
-                            label="Confirm Password"
-                            variant="outlined"
-                            size="small"
-                            margin="dense"
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(event) => setConfirmPassword(event.target.value)}
-                            required
-                        />
-                        <div className="checkbox-container">
-                            <Checkbox {...label} required />
-                            <p className="check-box-text">I agree to the <Link to="/tc">Terms and Conditions</Link> and <Link to="/privacypolicy">Privacy Policy</Link></p>
+                {
+                    !user ? (
+                        <div className="form-container">
+                            <h2 className="heading">Sign Up</h2>
+                            <form onSubmit={handleSignUp} className="form-fields">
+                                <TextField
+                                    className="form-input"
+                                    label="Name"
+                                    variant="outlined"
+                                    size="small"
+                                    margin="dense"
+                                    type="text"
+                                    value={name}
+                                    onChange={(event) => setName(event.target.value)}
+                                    required
+                                />
+                                <TextField
+                                    className="form-input"
+                                    label="Email"
+                                    variant="outlined"
+                                    size="small"
+                                    margin="dense"
+                                    type="email"
+                                    value={email}
+                                    onChange={(event) => setEmail(event.target.value)}
+                                    required
+                                />
+                                <TextField
+                                    className="form-input"
+                                    label="Password"
+                                    variant="outlined"
+                                    size="small"
+                                    margin="dense"
+                                    type="password"
+                                    value={password}
+                                    onChange={(event) => setPassword(event.target.value)}
+                                    required
+                                />
+                                <TextField
+                                    className="form-input"
+                                    label="Confirm Password"
+                                    variant="outlined"
+                                    size="small"
+                                    margin="dense"
+                                    type="password"
+                                    value={confirmPassword}
+                                    onChange={(event) => setConfirmPassword(event.target.value)}
+                                    required
+                                />
+                                <div className="checkbox-container">
+                                    <Checkbox {...label} required />
+                                    <p className="check-box-text">I agree to the <Link to="/tc">Terms and Conditions</Link> and <Link to="/privacypolicy">Privacy Policy</Link></p>
+                                </div>
+                                <div className="captcha-container">
+                                    <ReCAPTCHA
+                                        sitekey={process.env.REACT_APP_g_recaptcha_site_key}
+                                        ref={recaptchaRef}
+                                    />
+                                </div>
+
+                                <button className='signup-btn' type="submit">Sign Up</button>
+                                {/* <button className='signup-btn'onClick={displayCaptcha}>Sign Up</button> */}
+
+                            </form>
+                            <p className="or-text">or</p>
+                            <div className='google-btn-container'>
+                                <GoogleButton onClick={handleGoogleSignIn}>Sign Up with Google</GoogleButton>
+                            </div>
+                            <p>
+                                {/* Already have an account? <Link to="/signin">Sign In</Link> */}
+                                Already have an account? <Link to="/signin">Sign In</Link>
+                            </p>
                         </div>
-                        <div className="captcha-container">
-                            <ReCAPTCHA
-                                sitekey={process.env.REACT_APP_g_recaptcha_site_key}
-                                ref={recaptchaRef}
-                            />
-                        </div>
+                    ) : (
+                     <SignOutToContinue />
+                    )
+                }
 
-                        <button className='signup-btn' type="submit">Sign Up</button>
-                        {/* <button className='signup-btn'onClick={displayCaptcha}>Sign Up</button> */}
 
-                    </form>
-                    <p className="or-text">or</p>
-                    <div className='google-btn-container'>
-                        <GoogleButton onClick={handleGoogleSignIn}>Sign Up with Google</GoogleButton>
-                    </div>
-                    <p>
-                        {/* Already have an account? <Link to="/signin">Sign In</Link> */}
-                        Already have an account? <Link to="/signin">Sign In</Link>
-                    </p>
-                </div>
             </div>
             <Footer />
+            <ReCAPTCHA
+                sitekey={process.env.REACT_APP_g_recaptcha_invisible_site_key}
+                ref={recaptchaRefInvisible}
+                size='invisible'
+                // onChange={() => console.log("Captcha was resolved", recaptchaRefInvisible.current.getValue())}
+            />
         </div>
     );
 };
