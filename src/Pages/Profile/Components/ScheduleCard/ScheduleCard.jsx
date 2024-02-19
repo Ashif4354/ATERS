@@ -10,7 +10,7 @@ const ScheduleCard = (props) => {
     const onClickLink = () => {
         // navigate(`/schedule/&id=${props.schedule._id}`);
         const url = process.env.REACT_APP_client_url + '/schedule?id=' + props.schedule._id;
-        console.log(url);
+        // console.log(url);
         window.open(url);
     }
 
@@ -20,7 +20,7 @@ const ScheduleCard = (props) => {
                 <img className='schedule-image' src={props.schedule.randomImage} alt="place" />
             </div>
             <div className='schedule-card-details-container'>
-                <p className='schedule-card-attribute'><span className='attribute-title'>Destination: {props.schedule.destination}</span></p>
+                <p className='schedule-card-attribute'><span className='attribute-title'>Destination:</span> {props.schedule.destination}</p>
                 <p className='schedule-card-attribute'><span className='attribute-title'>From: </span>{props.schedule.from}</p>
                 <p className='schedule-card-attribute'><span className='attribute-title'>To: </span>{props.schedule.to}</p>
                 <p className='schedule-card-attribute'><span className='attribute-title'>Days: </span>{props.schedule.days}</p>
