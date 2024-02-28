@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './Footer.css';
 import opWorldHat from '../../assets/logos/op-world-hat.png';
-import { useNavigate } from 'react-router-dom';
+import { VisitCountContext } from '../../scripts/ContextAPI';
+
 
 const Footer = () => {
     const navigate = useNavigate();
+    const count = useContext(VisitCountContext);
 
     return (
         <footer className='footer'>
@@ -26,14 +29,17 @@ const Footer = () => {
                 </button>
                 <button
                     className='footer-button'
-                    onClick={() => { navigate('/privacypolicy')}}
+                    onClick={() => { navigate('/privacypolicy') }}
                 > Privacy Policy
                 </button>
                 <button
                     className='footer-button'
-                    onClick={() => { navigate('/contactus')}}
+                    onClick={() => { navigate('/contactus') }}
                 > Contact Us
                 </button>
+            </div>
+            <div className='visit-count-container'>
+                <p>Visit Count: {count ? count : 'loading...'}</p>
             </div>
         </footer>
     );

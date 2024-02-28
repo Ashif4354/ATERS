@@ -9,6 +9,7 @@ from .end_points.set_sail.set_sail import SetSail
 from .end_points.schedule.schedule import Schedule
 from .end_points.create_profile_in_db.create_profile_in_db import CreateProfileInDB
 from .end_points.user_profile.user_profile import UserProfile
+from .end_points.visit_count.visit_count import VisitCount
 
 from .lib.grecaptcha.verify_recaptcha import verify_recaptcha
 
@@ -66,6 +67,7 @@ api.add_resource(SetSail, '/setsail')
 api.add_resource(Schedule, '/schedule')
 api.add_resource(CreateProfileInDB, '/createprofileindb')
 api.add_resource(UserProfile, '/userprofile')
+api.add_resource(VisitCount, '/visitcount')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

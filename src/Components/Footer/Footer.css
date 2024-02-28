@@ -20,9 +20,21 @@
     display: flex;
     flex-direction: row;
     height: 100%;
-    width: 80%;
+    width: 75%;
     justify-content: space-around;
     /* background-color: antiquewhite; */
+}
+.visit-count-container {
+    display: flex;
+    height: 100%;
+    width:15%;
+    /* background-color: aquamarine;    */
+    justify-content: left;
+    align-items: center;
+    color: white;
+    font-family: 'Playfair Display SC', serif;
+    font-size: large;
+    
 }
 
 .footer-button {
