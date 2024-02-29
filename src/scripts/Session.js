@@ -1,3 +1,5 @@
+import { getAuth, signOut } from "firebase/auth";
+
 const createSession = (user) => {
     localStorage.setItem('user', JSON.stringify(user))
 }
@@ -7,7 +9,13 @@ const getSession = () => {
 }
 
 const Logout = () => {
-    localStorage.removeItem('user')
+    signOut(getAuth())
+        .then(() => {
+            localStorage.removeItem('user')
+        })
+        .catch((error) => {
+            console.log(error)
+        });
 }
 
 export { createSession, getSession, Logout }
