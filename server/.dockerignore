@@ -1,0 +1,4 @@
+/venv
+/output_json_files
+/.vscode
+*.pyc
