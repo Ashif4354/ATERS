@@ -34,7 +34,7 @@ class GoogleGenAI:
         ]
 
         self.model = genai.GenerativeModel(
-            model_name = 'gemini-pro', 
+            model_name = 'gemini-1.0-pro', 
             generation_config = generation_config, # type: ignore
             # safety_settings=safety_settings
         )  
@@ -79,8 +79,17 @@ class GoogleGenAI:
 if __name__ == '__main__':
     from dotenv import load_dotenv
     load_dotenv()
-    GGAI = GoogleGenAI('Chennai')
-    print(GGAI.generate_budget_of_places(['besant nagar beach', 'vgp universal kingdom', 'vgp marine kingdom',]))
+    # GGAI = GoogleGenAI('Chennai')
+    # print(GGAI.generate_budget_of_places(['besant nagar beach', 'vgp universal kingdom', 'vgp marine kingdom',]))
     # genai.configure(api_key = getenv('ATERS_GCP_API_KEY'))
 
     # print(genai.get_model('models/gemini-pro', client=None))
+
+    # response = genai.list_models(
+    #     page_size= 50,
+    #     client= None
+    # )
+    # print(response)
+
+    for model in genai.list_models():
+        print(model)
